@@ -16,6 +16,20 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+// This pre and post HOOKS in MONGOOSE will help to achieve password hashing
+
+// A function used to alert that a user has been created.
+userSchema.post("save", (doc, next) => {
+  console.log("new user has been created and saved", doc);
+  next();
+});
+
+// A function used to alert that a user is about to create.
+userSchema.pre("save", function (next) {
+  console.log("New user is about to be created", this);
+  next();
+});
+
 const User = mongoose.model("user", userSchema);
 
 module.exports = User;
